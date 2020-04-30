@@ -1,0 +1,30 @@
+<h2>物件詳細</h2>
+<%= form_with(model: @rent, local: true) do |form| %>
+  <div class="rent_title">
+    <%= form.label :物件名 %><br>
+    <%= @rent.name %>
+    <%= form.hidden_field :name %>
+  </div>
+  <div class="rent_title">
+    <%= form.label :賃料 %><br>
+    <%= number_to_currency(@rent.price) %>円
+    <%= form.hidden_field :price %>
+  </div>
+  <div class="rent_title">
+    <%= form.label :住所 %><br>
+    <%= @rent.address %>
+    <%= form.hidden_field :address %>
+  </div>
+  <div class="rent_title">
+    <%= form.label :築年数 %><br>
+    <%= @rent.age %>年
+    <%= form.hidden_field :age %>
+  </div>
+  <div class="rent_title">
+    <%= form.label :備考 %><br>
+    <%= @rent.comment %>
+    <%= form.hidden_field :comment %>
+  </div>
+<% end %>
+<%= link_to '編集', edit_rent_path(@rent.id) %>
+<%= link_to '戻る', rents_path %>
