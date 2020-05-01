@@ -1,14 +1,15 @@
+<% if @rent.errors.any? %>
+  <div id="error_explanation">
+    <h2><%= @rent.errors.count %>件のエラーがあります。</h2>
+    <ul>
+    <% @rent.errors.full_messages.each do |msg| %>
+      <li><%= msg %></li>
+    <% end %>
+    </ul>
+  </div>
+<% end %>
+
 <%= form_with(model: @rent, local: true) do |form| %>
-  <% if @rent.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= @rent.errors.count %>件のエラーがあります。</h2>
-      <ul>
-      <% @rent.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
-      <% end %>
-      </ul>
-    </div>
-  <% end %>
   <div class="rent_title">
     <%= form.label :物件名 %>
     <%= form.text_field :name %>
@@ -29,5 +30,22 @@
     <%= form.label :備考 %>
     <%= form.text_area :comment %>
   </div>
+  <% (0..1).each do |i| %>
+  <h3>最寄駅<%= i += 1 %></h3>
+    <%= form.fields_for :stations do |f|%>
+      <div class="station_title">
+        <%= f.label :路線名 %>
+        <%= f.text_field :route %>
+      </div>
+      <div class="station_title">
+        <%= f.label :駅名 %>
+        <%= f.text_field :station_name %>
+      </div>
+      <div class="station_title">
+        <%= f.label :徒歩分数 %>
+        <%= f.text_field :walk_time %>分
+      </div>
+    <% end %>
+  <% end %>
   <%= form.submit '登録する' %>
 <% end %>

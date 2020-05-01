@@ -7,6 +7,7 @@ class RentsController < ApplicationController
 
   def new
     @rent = Rent.new
+    @rent.stations.build
   end
 
   def create
@@ -22,6 +23,7 @@ class RentsController < ApplicationController
   end
 
   def edit
+    @rent.stations.build
   end
 
   def update
@@ -39,7 +41,7 @@ class RentsController < ApplicationController
 
   private
   def  rent_params
-    params.require(:rent).permit(:name, :price, :address, :age, :comment)
+    params.require(:rent).permit(:name, :price, :address, :age, :comment,stations_attributes:[:route, :station_name, :walk_time, :id, :_destroy])
   end
 
   def set_rent
