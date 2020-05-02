@@ -23,7 +23,10 @@ class RentsController < ApplicationController
   end
 
   def edit
-    @rent.stations.build
+    unless @rent.stations.last.route.blank? &&
+      @rent.stations.last.station_name.blank? && @rent.stations.last.walk_time.blank?
+      @rent.stations.build
+    end
   end
 
   def update

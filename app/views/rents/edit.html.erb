@@ -20,10 +20,10 @@
     <%= form.label :備考 %>
     <%= form.text_area :comment %>
   </div>
-  <h3>最寄駅</h3>
-  <%= form.fields_for :stations do |f|%>
-    <div class="station_title">
-    </div>
+  <% @rent.stations.each.with_index do |station, i| %>
+    <% break if i == 1 %>
+    <%= form.fields_for :stations do |f|%>
+    <h3>最寄駅<%= i += 1 %></h3>
     <div class="station_title">
       <%= f.label :路線名 %>
       <%= f.text_field :route %>
@@ -39,7 +39,8 @@
       <%= f.text_field :walk_time %>分
       <%= f.hidden_field :id %>
     </div>
+    <% end %>
   <% end %>
   <%= form.submit '登録する' %>
 <% end %>
-<%= link_to '戻る', rents_path %>
+<%= link_to '物件一覧', rents_path %>

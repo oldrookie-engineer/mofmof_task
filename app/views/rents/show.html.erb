@@ -1,49 +1,27 @@
 <h2>物件詳細</h2>
-<%= form_with(model: @rent, local: true) do |form| %>
-  <div class="rent_title">
-    <%= form.label :物件名 %>
-    <%= @rent.name %>
-    <%= form.hidden_field :name %>
-  </div>
-  <div class="rent_title">
-    <%= form.label :賃料 %>
-    <%= number_to_currency(@rent.price) %>
-    <%= form.hidden_field :name %>円
-  </div>
-  <div class="rent_title">
-    <%= form.label :住所 %>
-    <%= @rent.address %>
-    <%= form.hidden_field :address %>  </div>
-  <div class="rent_title">
-    <%= form.label :築年数 %>
-    <%= @rent.age %>
-    <%= form.hidden_field :age %>年
-  </div>
-  <div class="rent_title">
-    <%= form.label :備考 %>
-    <%= @rent.comment %>
-    <%= form.hidden_field :comment %>
-  </div>
-  <%= form.fields_for :stations do |f|%>
-    <% @rent.stations.each do |station|%>
-      <div class="station_title">
-        <%= f.label :最寄駅 %>
-      </div>
-      <div class="station_title">
-        <%= f.label :路線名 %>
-        <%= station.route %>
-      </div>
-      <div class="station_title">
-        <%= f.label :駅名 %>
-        <%= station.station_name %>
-      </div>
-      <div class="station_title">
-        <%= f.label :徒歩分数 %>
-        <%= station.walk_time %>分
-      </div>
-    <% end %>
-  <% end %>
-  <%= form.submit '登録する' %>
+<div class="rent_title">
+<p>
+  <strong>物件名:</strong>
+  <%= @rent.name %><br>
+  <strong>賃料:</strong>
+  <%= number_to_currency(@rent.price) %>円<br>
+  <strong>住所:</strong>
+  <%= @rent.address %><br>
+  <strong>築年数:</strong>
+  <%= @rent.age %>年<br>
+  <strong>備考:</strong>
+  <%= @rent.comment %>
+</p>
+<% @rent.stations.each.with_index do |station, i| %>
+<h3>最寄駅<%=  i += 1 %></h3>
+<p>
+<strong>路線名:</strong>
+<%= station.route %><br>
+<strong>駅名:</strong>
+<%= station.station_name %><br>
+<strong>徒歩分数:</strong>
+<%= station.walk_time %>分<br>
+ </p>
 <% end %>
 <%= link_to '編集', edit_rent_path(@rent.id) %>
-<%= link_to '戻る', rents_path %>
+<%= link_to '物件一覧', rents_path %>
