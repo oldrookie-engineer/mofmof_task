@@ -26,9 +26,3 @@ vendor
 .ruby-gemset
 .ruby-version
 config.ru
-Gemfile
-Gemfile.lock
-package.json
-Rakefile
-README.md
-yarn.lock
