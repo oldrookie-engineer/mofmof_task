@@ -12,10 +12,14 @@ class RentsController < ApplicationController
 
   def create
     @rent = Rent.new(rent_params)
-    if @rent.save
-      redirect_to new_rent_path, notice: '物件登録できました！'
-    else
+    if params[:back]
       render :new
+    else
+      if @rent.save
+        redirect_to new_rent_path, notice: '物件登録しました！'
+      else
+        render :new
+      end
     end
   end
 
@@ -23,15 +27,17 @@ class RentsController < ApplicationController
   end
 
   def edit
-    unless @rent.stations.last.route.blank? &&
-      @rent.stations.last.station_name.blank? && @rent.stations.last.walk_time.blank?
+    if @rent.stations.last&.route.blank? &&
+      @rent.stations.last&.station_name.blank? &&
+      @rent.stations.last&.walk_time.blank?
+    else
       @rent.stations.build
     end
   end
 
   def update
     if @rent.update(rent_params)
-      redirect_to rents_path, notice: '物件を編集できました！'
+      redirect_to rents_path, notice: '物件を編集しました！'
     else
       render :edit
     end
@@ -44,7 +50,7 @@ class RentsController < ApplicationController
 
   private
   def  rent_params
-    params.require(:rent).permit(:name, :price, :address, :age, :comment,stations_attributes:[:route, :station_name, :walk_time, :id, :_destroy])
+    params.require(:rent).permit(:name, :price, :address, :age, :comment,stations_attributes:%i[route station_name walk_time id _destroy])
   end
 
   def set_rent

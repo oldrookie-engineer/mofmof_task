@@ -10,11 +10,11 @@
   </tr>
 <% @rents.each do |rent| %>
   <tr>
-    <td><%= rent.name %></td>
-    <td><%= number_to_currency(rent.price) %>円</td>
-    <td><%= rent.address %></td>
-    <td><%= rent.age %>年</td>
-    <td><%= rent.comment %></td>
+    <td class="rent-list"><%= rent.name %></td>
+    <td class="rent-list"><%= number_to_currency(rent.price) %>円</td>
+    <td class="rent-list"><%= rent.address %></td>
+    <td class="rent-list"><%= rent.age %>年</td>
+    <td class="rent-list"><%= rent.comment %></td>
     <td><%= link_to '詳細', rent_path(rent.id) %>
     <td><%= link_to '編集', edit_rent_path(rent.id) %></td>
     <td><%= link_to '削除', rent_path(rent.id), method: :delete , data: { confirm: '本当に削除していいですか？' }%></td>

@@ -1,0 +1,33 @@
+<h3>以下の内容で、送信する。</h3>
+<%= form_with(model: @rent, local: true) do |form| %>
+  <%= form.hidden_field :name %>
+  <%= form.hidden_field :price %>
+  <%= form.hidden_field :address %>
+  <%= form.hidden_field :age %>
+  <%= form.hidden_field :comment %>
+  <p>物件名:<%= @rent.name %></p>
+  <p>家賃:<%= number_to_currency(@rent.price) %>円</p>
+  <p>住所:<%= @rent.address %></p>
+  <p>築年数:<%= @rent.age %>年</p>
+  <p>備考:<%= @rent.comment %></p>
+  <% @rent.stations.each.with_index do |station, i| %>
+    <% break if i == 1 %>
+    <%= form.fields_for :stations do |f|%>
+    <h3>最寄駅<%= i += 1 %></h3>
+    <div class="station_title">
+      <%= f.label :路線名 %>
+      <%= f.hidden_field :route %>
+    </div>
+    <div class="station_title">
+      <%= f.label :駅名 %>
+      <%= f.hidden_field :station_name %>
+    </div>
+    <div class="station_title">
+      <%= f.label :徒歩分数 %>
+      <%= f.hidden_field :walk_time %>分
+    </div>
+    <% end %>
+  <% end %>
+  <%= form.submit  "登録する" %>
+  <%= form.submit  "戻る" , name: 'back' %>
+<% end %>
