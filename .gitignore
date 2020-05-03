@@ -20,10 +20,15 @@
 # Ignore Byebug command history file.
 .byebug_history
 
+node_modules
+vendor
 .env
 .ruby-gemset
 .ruby-version
 config.ru
 Gemfile
 Gemfile.lock
+package.json
 Rakefile
+README.md
+yarn.lock
