@@ -19,3 +19,9 @@
 
 # Ignore Byebug command history file.
 .byebug_history
+
+node_modules
+vendor
+.env
+.ruby-gemset
+.ruby-version

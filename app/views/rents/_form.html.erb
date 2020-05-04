@@ -1,0 +1,54 @@
+<% if @rent.errors.any? %>
+  <div id="error_explanation">
+    <h2><%= @rent.errors.count %>件のエラーがあります。</h2>
+    <ul>
+    <% @rent.errors.full_messages.each do |msg| %>
+      <li><%= msg %></li>
+    <% end %>
+    </ul>
+  </div>
+<% end %>
+<%= form_with(model: @rent, local: true) do |form| %>
+<div class="rent-form">
+  <div class="rent_title">
+    <dt><%= form.label :物件名 %></dt>
+    <dd><%= form.text_field :name %></dd>
+  </div>
+  <div class="rent_title">
+    <dt><%= form.label :賃料 %></dt>
+    <dd><%= form.text_field :price %> 円</dd>
+  </div>
+  <div class="rent_title">
+    <dt><%= form.label :住所 %></dt>
+    <dd><%= form.text_field :address,class: 'address' %></dd>
+  </div>
+  <div class="rent_title">
+    <dt><%= form.label :築年数 %></dt>
+    <dd><%= form.text_field :age, class: 'age' %> 年</dd>
+  </div>
+  <div class="rent_title">
+    <dt><%= form.label :備考 %></dt>
+    <dd><%= form.text_area :comment %></dd>
+  </div>
+</div>
+  <% (0..1).each do |i| %>
+  <h3>最寄駅<%= i += 1 %></h3>
+    <%= form.fields_for :stations do |f|%>
+    <div class="station_form">
+      <div class="station_title">
+        <dt><%= f.label :路線名 %></dt>
+        <dd><%= f.text_field :route %></dd>
+      </div>
+      <div class="station_title">
+        <dt><%= f.label :駅名 %></dt>
+        <dd><%= f.text_field :station_name %></dd>
+      </div>
+      <div class="station_title">
+        <dt><%= f.label :徒歩分数 %></dt>
+        <dd><%= f.text_field :walk_time, class: 'walk' %> 分</dd>
+      </div>
+    </div>
+    <% end %>
+  <% end %>
+  <%= form.submit '登録する',class:'submit' %>
+<% end %>

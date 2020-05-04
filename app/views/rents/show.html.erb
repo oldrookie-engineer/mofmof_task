@@ -1,0 +1,26 @@
+<h2>物件詳細</h2>
+  <dl class="rent-info">
+  <dt><strong>物件名</strong></dt>
+  <dd><%= @rent.name %></dd>
+  <dt><strong>賃料</strong></dt>
+  <dd><%= number_to_currency(@rent.price) %>円</dd>
+  <dt><strong>住所</strong></dt>
+  <dd><%= @rent.address %></dd>
+  <dt><strong>築年数</strong></dt>
+  <dd><%= @rent.age %>年</dd>
+  <dt><strong>備考</strong></dt>
+  <dd><%= @rent.comment %></dd>
+</dl>
+<% @rent.stations.each.with_index do |station, i| %>
+<h3>最寄駅<%=  i += 1 %></h3>
+<dl class="station-info">
+<dt><strong>路線名</strong></dt>
+<dd><%= station.route %></dd>
+<dt><strong>駅名</strong></dt>
+<dd><%= station.station_name %></dd>
+<dt><strong>徒歩分数</strong></dt>
+<dd><%= station.walk_time %>分</dd>
+</dl>
+<% end %>
+<%= link_to '編集', edit_rent_path(@rent.id) %>
+<%= link_to '物件一覧', rents_path %>
